@@ -1,14 +1,118 @@
+:root {
+  --game-speed: 1s;
+  --background0-speed: 0.165;
+  --background1-speed: 3;
+  --background2-speed: 5;
+  --dino-speed: 1.5;
+  --games-width: 768px;
+}
+
 * {
   margin: 0;
   padding: 0;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+body {
+  background-color: #555;
+}
+canvas {
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
 }
 
+
+
 .game {
-  width: 600px;
-  height: 200px;
-  border-bottom:  1px solid #000;
-  margin: auto;
+  width: 768px;
+  height: 388px;
+  margin: 20px auto 0;
+  overflow: hidden;
+  clip-path: padding-box;
+  /* outline: 2px solid #000; */
 }
+
+.background0, .background1, .background2, .background3 {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.background0 {
+  z-index: 0;
+  width: 832px;
+  height: 41px; 
+  background: url(./assets/background/ground.png);
+  top:348px;
+  right: 157px;
+}
+
+.background1 {
+  width: 1152px;
+  height: 123px;
+  z-index: -1;
+  background: url(./assets/background/graveyard.png) repeat-x;
+  top: 248px;
+  right: -163px;
+
+}
+.background2 {
+  width: 960px;
+  height: 179px;
+  background: url(./assets/background/mountains.png) repeat-x;
+  z-index: -2;
+  top: 178px;
+  right: 29px;
+}
+.background3 {
+  width: 768px;
+  height: 448px;
+  z-index: -3;
+  background: url(./assets/background/background.png) no-repeat;
+  background-size: cover;
+  
+
+}
+
+.background0-animation {
+  animation: background0Mov calc(var(--game-speed) * var(--background0-speed)) infinite linear;
+}
+
+.background1-animation {
+  animation: background1Mov calc(var(--game-speed) * var(--background1-speed)) infinite linear;
+}
+
+.background2-animation {
+  animation: background2Mov calc(var(--game-speed) * var(--background2-speed)) infinite linear;
+}
+
+@keyframes background0Mov {
+  0% {
+    right: 156px;
+  }
+  100% {
+    right: 221px;
+  }
+}
+
+@keyframes background1Mov {
+  0% {
+    right: -163px;
+  }
+  100% {
+    right: 221px;
+  }
+}
+
+@keyframes background2Mov {
+  0% {
+    right: 29px;
+  }
+  100% {
+    right: 221px;
+  }
+}
+
 
 #dino {
   width: 50px;
@@ -16,7 +120,8 @@
   background-image: url(./assets/sprites/dino-hurt.png);
   background-size: 50px 50px ;
   position: relative;
-  top: 152px;
+  top: 290px;
+  outline:red 1px solid;
 }
 
 #cactus {
@@ -25,10 +130,28 @@
   background-image: url(./assets/sprites/cactuses_small_1.png);
   background-size: 17px 35px;
   position: relative;
-  top: 116px;
+  top: 255px;
   left: 580px;
-  animation: cactusMov 1.5s infinite linear;
+  outline: green solid 1px;
 }
+
+.score {
+  width: 100px;
+  height: 20px;
+  left: 650px;
+  top: -70px;
+  position: relative;
+  color: #fff;
+
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.cactus-animation {
+  animation: cactusMov calc(var(--game-speed) * var(--dino-speed)) infinite linear;
+}
+
 
 @keyframes cactusMov {
   0% {
@@ -40,24 +163,80 @@
 }
 
 .jump {
-  animation: jump 0.4s linear;
+  animation: jump 0.5s linear;
 }
 
 @keyframes jump {
   0% {
-    top: 152px;
+    top: 290px;
   }
-  30% {
-    top: 130px;
+  25% {
+    top: 250px;
   }
   50% {
-    top: 80px;
+    top: 210px;
   }
-  80% {
-    top: 110px;
+  75% {
+    top: 250px;
   }
 
   100% {
-    top: 152px;
+    top: 290px;
   }
 }
+/*MENU*/
+.menu {
+  display: flex;
+  box-sizing: border-box;
+  gap: 20px;
+  width: 768px;
+  margin: 0 auto;
+  padding-left: 30px;
+  background-color:#2c0127;
+
+}
+.btn {
+  width: 150px;
+  height: 40px;
+  background-color: #333;
+  color: #fff;
+  border: #222 1px solid;
+  border-radius: 5px;
+
+  font-size: 20px;
+  transition: 0.1s;
+}
+
+.btn:hover {
+  background-color: #222;
+  color: #ccc;
+  border: #111 1px solid;
+  transform: scale(1.1);
+}
+/*MENU*/
+
+/* FOOTER*/
+.footer {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 768px;
+  background-color:#2c0127;
+  margin: 0 auto;
+  padding: 10px 30px;
+}
+
+.footer-item {
+  display: flex;
+  align-items: center;
+}
+
+.footer-date {
+  color: #000;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-size: larger;
+  font-weight: 700;
+}
+/* FOOTER*/
