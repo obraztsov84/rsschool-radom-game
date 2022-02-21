@@ -14,17 +14,29 @@
     <div class="background1"></div>
     <div class="background2"></div>
     <div class="background3"></div>
+    <div class="modal game-over">
+      <h1>Игра окончена</h1>
+      <p class="lastWord">Очередной динозавр умер так и не достигнув ускользающей цели</p>
+      <p>Ваш счет в текущей игре: <strong class="endGameScore">00000</strong></p>
+
+      <button class="btn gameOverBtn">OK</button> 
+    </div>
+    <div class="modal score-modal">
+      <h2>Счет</h2>
+      <ul class="ul lastTenScores"></ul>
+    </div>
 
     <div id="dino"></div>
     <div id="cactus"></div>
     <div class="score">
-      <p class="score-text" id="score-text">0</p>
+      <p class="score-text" id="score-text">00000</p>
     </div>
   </div>
 
   <div class="menu">
     <button class="btn toggleBtn">Start</button>
     <button class="btn scoreBtn">Score</button>
+    <button class="btn musicBtn">Music ON</button>
   </div>
 
   <footer class="footer">
@@ -36,7 +48,8 @@
       <a class="logo" href="https://rs.school/js/"><img  src="./assets/logos/rsschool.svg" height="50" alt="rsschool-logo"/></a>
     </div>
   </footer>
-
+  <audio id="jumpSfx"src="./assets/sound/sfx-jump.mp3" ></audio>
+  <audio id="gameMusic"src="./assets/sound/gameMusic.mp3" ></audio>
   <script src="script.js"></script>
 </body>
 </html>

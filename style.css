@@ -2,11 +2,11 @@
   --game-speed: 1s;
   --background0-speed: 0.165;
   --background1-speed: 3;
-  --background2-speed: 5;
+  --background2-speed: 10;
   --dino-speed: 1.5;
   --games-width: 768px;
 }
-
+ 
 * {
   margin: 0;
   padding: 0;
@@ -27,7 +27,7 @@ canvas {
   width: 768px;
   height: 388px;
   margin: 20px auto 0;
-  overflow: hidden;
+  overflow: clip;
   clip-path: padding-box;
   /* outline: 2px solid #000; */
 }
@@ -36,6 +36,37 @@ canvas {
   width: 100%;
   height: 100%;
   position: absolute;
+}
+
+.modal{
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+
+  position: absolute;
+  z-index: 10;
+  width: 584px;
+  height: 280px;
+  background-color: #1b0018;
+  top: -300px;
+  left: 300px;
+
+  transition: 0.5s;
+  border-radius: 20px;
+
+  color: #fff;
+}
+
+.modal.show {
+  transition: 0.5s;
+  top: 50px;
+}
+
+.ul {
+  
 }
 
 .background0 {
@@ -115,12 +146,13 @@ canvas {
 
 
 #dino {
-  width: 50px;
-  height: 50px;
-  background-image: url(./assets/sprites/dino-hurt.png);
-  background-size: 50px 50px ;
+  width: 47px;
+  height: 47px;
+  background-image: url(./assets/sprites/dino-idle.png);
+  background-size: 47px 47px;
   position: relative;
   top: 290px;
+  left: 5px;
   outline:red 1px solid;
 }
 
@@ -148,22 +180,23 @@ canvas {
   font-size: 20px;
 }
 
-.cactus-animation {
-  animation: cactusMov calc(var(--game-speed) * var(--dino-speed)) infinite linear;
+#dino.dino-run {
+
+  background-image: url(./assets/sprites/dino-run.png);
+  background-size: cover;
+  animation: dinoMoveX 1s steps(8) infinite; 
 }
 
+#dino.dino-jump {
 
-@keyframes cactusMov {
-  0% {
-    left: 580px;
-  }
-  100% {
-    left: 0;
-  }
+  background-image: url(./assets/sprites/dino-idle.png);
+  background-size: cover;
+  animation: jump 0.4s linear;
 }
 
-.jump {
-  animation: jump 0.5s linear;
+@keyframes dinoMoveX {
+  from{background-position-x: 376px;}
+  to{background-position-x:  0px}
 }
 
 @keyframes jump {
@@ -178,12 +211,28 @@ canvas {
   }
   75% {
     top: 250px;
-  }
+  } 
 
   100% {
     top: 290px;
   }
 }
+
+.cactus-animation {
+  animation: cactusMov calc(var(--game-speed) * var(--dino-speed)) infinite linear;
+}
+
+
+@keyframes cactusMov {
+  0% {
+    left: 580px;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+
 /*MENU*/
 .menu {
   display: flex;
@@ -212,6 +261,7 @@ canvas {
   color: #ccc;
   border: #111 1px solid;
   transform: scale(1.1);
+  cursor: pointer;
 }
 /*MENU*/
 
