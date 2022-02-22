@@ -7,6 +7,7 @@ const toggleBtn=document.querySelector(".toggleBtn");
 const scoreBtn = document.querySelector(".scoreBtn")
 const scoreTxt=document.getElementById("score-text");
 const jumpSfx = document.getElementById("jumpSfx");
+const deathSfx = document.getElementById("deathSfx")
 const gameMusic = document.getElementById("gameMusic");
 const toggleMusicBtn = document.querySelector(".musicBtn");
 const gameOverBtn = document.querySelector(".gameOverBtn");
@@ -65,6 +66,7 @@ function gameStop () {
   scoreTxt.innerText = "00000"
   dinoAlive = false;
   setScoreToPanel();
+  deathSfx.play()
 }
 
 function setScoreToPanel() {
