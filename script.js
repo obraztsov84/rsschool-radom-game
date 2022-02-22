@@ -1,3 +1,5 @@
+console.log("К 23.02.2022 доделаю анимацию кактусов")
+
 
 const dino = document.getElementById("dino");
 const cactus = document.getElementById("cactus");
@@ -12,7 +14,8 @@ const gameOverModal = document.querySelector(".game-over");
 const scoreModal = document.querySelector(".score-modal");
 const endGameScore = document.querySelector(".endGameScore");
 const lastWord = document.querySelector(".lastWord");
-const lastTenScores = document.querySelector(".lastTenScores")
+const lastTenScores = document.querySelector(".lastTenScores");
+const bestTenScores = document.querySelector(".bestTenScores");
 let score = 0;
 let calculateScore = false;
 let jumpEvent = false; 
@@ -20,6 +23,7 @@ let dinoAlive = false;
 let isMusic = true;
 let isMusicPlaying = false;
 let scoreLastTen = [];
+let scoreBigTen = [];
 
 const background2=document.querySelector(".background2");
 const background1=document.querySelector(".background1");
@@ -32,7 +36,6 @@ document.addEventListener("keydown", (e) => {jump()})
 function gameStart () {
     cactus.classList.add("cactus-animation");
     dino.classList.add("dino-run")
-    console.log("gamestart event")
     calculateScore = true;
     clearScore();
     toggleBtn.blur();
@@ -61,9 +64,19 @@ function gameStop () {
   background0.classList.remove("background0-animation");
   scoreTxt.innerText = "00000"
   dinoAlive = false;
+  setScoreToPanel();
+}
+
+function setScoreToPanel() {
   scoreLastTen.push(scoreBeautify(score));
-  if (scoreLastTen>10) scoreLastTen = scoreLastTen.shift();
-  console.log(scoreLastTen)
+  if (scoreLastTen.length>10) scoreLastTen = scoreLastTen.slice(1, 11);
+  setLocalStorage() 
+  scoreBigTen.push(scoreBeautify(score));
+  scoreBigTen.sort( (a, b) => b - a );
+  if (scoreBigTen.length>10) {
+    scoreBigTen = scoreBigTen.slice(0, 10);
+  }
+  setLocalStorage() 
 }
 
 function jump () {
@@ -86,7 +99,18 @@ scoreBtn.addEventListener("click", scoreToggle);
 
 function scoreToggle() {
   scoreModal.classList.toggle("show");
-  lastTenScores.innerHTML = scoreLastTen
+  lastTenScores.innerHTML = ""
+  for (let i=0; i<scoreLastTen.length; i++) {
+    let li = document.createElement("li");
+    li.textContent = `${i+1}. ${scoreLastTen[i]}`;
+    lastTenScores.append(li);
+  }
+  bestTenScores.innerHTML = "";
+  for (let i=0; i<scoreBigTen.length; i++) {
+    let li = document.createElement("li");
+    li.textContent = `${i+1}. ${scoreBigTen[i]}`;
+    bestTenScores.append(li);
+  }
 }
 
 gameOverBtn.addEventListener("click", gameOverToggle);
@@ -136,7 +160,7 @@ let isAlive = setInterval (() => {
   
   if (calculateScore) addScore();
 
-  if (cactusLeft < 17 && cactusLeft > 0 && dinoTop >=240) {
+  if (cactusLeft < 17 && cactusLeft > 0 && dinoTop >=260) {
     gameStop();  
     console.log("Game over")
   }
@@ -151,19 +175,20 @@ lastPhrase = [
 ]
 
 function setLocalStorage() {
-  localStorage.setItem('scoreBig', scoreBig);
+  localStorage.setItem('scoreBigTen', scoreBigTen);
   localStorage.setItem('scoreLastTen', scoreLastTen);
 }
-window.addEventListener('beforeunload', setLocalStorage)
+// window.addEventListener('beforeunload', setLocalStorage)
+
 
 function getLocalStorage() {
-  if(localStorage.getItem('scoreBig')) {
-    const lang = localStorage.getItem('scoreBig');
-    getTranslate(lang);
+
+  if(localStorage.getItem('scoreBigTen')) {
+    scoreBigTen = localStorage.getItem('scoreBigTen').split(",").sort((a, b)=> b - a);
+    
   }
   if(localStorage.getItem('scoreLastTen')) {
-    const lang = localStorage.getItem('scoreLastTen');
-    getTranslate(lang);
+    scoreLastTen = localStorage.getItem('scoreLastTen').split(",");
   }
 }
 window.addEventListener('load', getLocalStorage)

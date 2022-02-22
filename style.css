@@ -1,6 +1,6 @@
 :root {
   --game-speed: 1s;
-  --background0-speed: 0.165;
+  --background0-speed: 0.123;
   --background1-speed: 3;
   --background2-speed: 10;
   --dino-speed: 1.5;
@@ -15,15 +15,10 @@
 body {
   background-color: #555;
 }
-canvas {
-  image-rendering: -moz-crisp-edges;
-  image-rendering: -webkit-crisp-edges;
-  image-rendering: pixelated;
-}
-
 
 
 .game {
+  position: relative;
   width: 768px;
   height: 388px;
   margin: 20px auto 0;
@@ -52,7 +47,7 @@ canvas {
   height: 280px;
   background-color: #1b0018;
   top: -300px;
-  left: 300px;
+  left: 90px;
 
   transition: 0.5s;
   border-radius: 20px;
@@ -66,16 +61,29 @@ canvas {
 }
 
 .ul {
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+}
+
+.score-modal {
+  justify-content: flex-start;
+}
+
+.twoColumns {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .background0 {
   z-index: 0;
   width: 832px;
   height: 41px; 
-  background: url(./assets/background/ground.png);
+  background: url(./assets/background/ground.png) repeat-x;
   top:348px;
-  right: 157px;
+  right: -64px;
 }
 
 .background1 {
@@ -83,8 +91,8 @@ canvas {
   height: 123px;
   z-index: -1;
   background: url(./assets/background/graveyard.png) repeat-x;
-  top: 248px;
-  right: -163px;
+  top: 270px;
+  right: -384px;
 
 }
 .background2 {
@@ -92,8 +100,8 @@ canvas {
   height: 179px;
   background: url(./assets/background/mountains.png) repeat-x;
   z-index: -2;
-  top: 178px;
-  right: 29px;
+  top: 170px;
+  right: -192px;
 }
 .background3 {
   width: 768px;
@@ -119,28 +127,28 @@ canvas {
 
 @keyframes background0Mov {
   0% {
-    right: 156px;
+    right: -64px;
   }
   100% {
-    right: 221px;
+    right: 0px;
   }
 }
 
 @keyframes background1Mov {
   0% {
-    right: -163px;
+    right: -384px;
   }
   100% {
-    right: 221px;
+    right: 0px;
   }
 }
 
 @keyframes background2Mov {
   0% {
-    right: 29px;
+    right: -192px;
   }
   100% {
-    right: 221px;
+    right: 0px;
   }
 }
 
@@ -151,9 +159,9 @@ canvas {
   background-image: url(./assets/sprites/dino-idle.png);
   background-size: 47px 47px;
   position: relative;
-  top: 290px;
+  top: 310px;
   left: 5px;
-  outline:red 1px solid;
+  /* outline:red 1px solid; */
 }
 
 #cactus {
@@ -162,9 +170,9 @@ canvas {
   background-image: url(./assets/sprites/cactuses_small_1.png);
   background-size: 17px 35px;
   position: relative;
-  top: 255px;
-  left: 580px;
-  outline: green solid 1px;
+  top: 275px;
+  left: 782px;
+  /* outline: green solid 1px; */
 }
 
 .score {
@@ -179,6 +187,8 @@ canvas {
   font-weight: 700;
   font-size: 20px;
 }
+
+
 
 #dino.dino-run {
 
@@ -225,7 +235,7 @@ canvas {
 
 @keyframes cactusMov {
   0% {
-    left: 580px;
+    left: 782px;
   }
   100% {
     left: 0;
@@ -240,7 +250,7 @@ canvas {
   gap: 20px;
   width: 768px;
   margin: 0 auto;
-  padding-left: 30px;
+  padding: 20px 30px 0 30px;
   background-color:#2c0127;
 
 }
